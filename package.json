@@ -25,9 +25,13 @@
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/koa": "^2.15.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
     "typescript": "^5"
   },
   "engines": {
