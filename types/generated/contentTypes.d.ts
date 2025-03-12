@@ -428,6 +428,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     liveUrl: Schema.Attribute.String &
       Schema.Attribute.Required &

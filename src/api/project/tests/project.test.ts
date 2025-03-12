@@ -13,7 +13,18 @@ describe('Project API', () => {
       title: 'Test Project',
       description: 'A test project description',
       category: 'web',
-      liveUrl: 'https://test-project.com'
+      liveUrl: 'https://test-project.com',
+      featured: false
+    }
+  };
+
+  const featuredProject = {
+    data: {
+      title: 'Featured Test Project',
+      description: 'A featured test project description',
+      category: 'web',
+      liveUrl: 'https://featured-test-project.com',
+      featured: true
     }
   };
 
@@ -31,6 +42,17 @@ describe('Project API', () => {
       expect(response.body.data).toBeDefined();
       expect(response.body.data.attributes.title).toBe(testProject.data.title);
       projectId = response.body.data.id;
+    });
+
+    it('should create a featured project successfully', async () => {
+      const response = await request(app.server)
+        .post('/api/projects')
+        .send(featuredProject)
+        .expect(200);
+
+      expect(response.body.data).toBeDefined();
+      expect(response.body.data.attributes.title).toBe(featuredProject.data.title);
+      expect(response.body.data.attributes.featured).toBe(true);
     });
 
     it('should fail when required fields are missing', async () => {
@@ -54,6 +76,19 @@ describe('Project API', () => {
         .expect(200);
 
       expect(Array.isArray(response.body.data)).toBeTruthy();
+    });
+  });
+
+  describe('GET /api/projects/featured', () => {
+    it('should return only featured projects', async () => {
+      const response = await request(app.server)
+        .get('/api/projects/featured')
+        .expect(200);
+
+      expect(Array.isArray(response.body.data)).toBeTruthy();
+      response.body.data.forEach((project: any) => {
+        expect(project.attributes.featured).toBe(true);
+      });
     });
   });
 

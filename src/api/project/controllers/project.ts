@@ -41,6 +41,28 @@ export default factories.createCoreController('api::project.project', ({ strapi 
     }
   },
 
+  async findFeatured(ctx: Context) {
+    try {
+      const { query } = ctx;
+
+      // Use strapi's entity service to fetch featured projects
+      const entries = await strapi.entityService.findMany('api::project.project', {
+        ...query,
+        filters: { featured: true },
+        populate: '*',
+        sort: { createdAt: 'desc' }
+      });
+
+      const sanitizedEntries = await this.sanitizeOutput(entries, ctx);
+
+      return {
+        data: sanitizedEntries
+      };
+    } catch (error) {
+      ctx.throw(500, `Error fetching featured projects: ${error.message}`);
+    }
+  },
+
   async findOne(ctx: Context) {
     try {
       const { id } = ctx.params;

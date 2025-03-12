@@ -2,6 +2,14 @@ export default {
   routes: [
     {
       method: 'GET',
+      path: '/projects/featured',
+      handler: 'project.findFeatured',
+      config: {
+        auth: false,
+      },
+    },
+    {
+      method: 'GET',
       path: '/projects',
       handler: 'project.find',
       config: {

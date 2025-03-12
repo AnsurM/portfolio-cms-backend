@@ -48,6 +48,11 @@
     "slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this project should be featured on the homepage"
     }
   }
 } 
